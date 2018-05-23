@@ -1,7 +1,5 @@
-/*
- * Create a list that holds all of your cards
- */
-
+// Create a list that holds all of your cards
+let cards = document.querySelectorAll('.card')
 
 /*
  * Display the cards on the page
@@ -25,6 +23,7 @@ function shuffle(array) {
     return array;
 }
 
+let flipped = [];
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -36,3 +35,9 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+cards.forEach(function(card) {
+  card.addEventListener('click', function(event) {
+    console.log(event.target)
+  })
+})
