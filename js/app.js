@@ -1,5 +1,3 @@
-// Create a list that holds all of your cards
-let cards = document.querySelectorAll('.card')
 
 /*
  * Display the cards on the page
@@ -23,8 +21,6 @@ function shuffle(array) {
     return array;
 }
 
-let flipped = [];
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -36,9 +32,21 @@ let flipped = [];
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+// Create a list that holds all of your cards
+let cards = document.querySelectorAll('.card')
+let flippedCards = [];
+
 cards.forEach(function(card) {
   card.addEventListener('click', function(event) {
-    console.log(event.target)
-    card.classList.add('open', 'show')
+    console.log(flippedCards.length)
+    if (flippedCards.length >= 2) {
+      cards.forEach(function(card) {
+        card.classList.remove('open', 'show')
+      });
+      flippedCards = []
+    } else {
+      flippedCards.push(card)
+      card.classList.add('open', 'show')
+    }
   })
 })
