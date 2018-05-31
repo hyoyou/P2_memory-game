@@ -58,9 +58,10 @@ function shuffle(array) {
 let openCards;
 let matchedCards;
 let counter;
-let cards
+let cards;
 let counterDisplay = document.querySelector('.moves');
-let stars
+let stars;
+let starCount;
 
 
 // Match: Add cards to matchedCards array
@@ -120,16 +121,25 @@ function checkMatch() {
 // Remove stars after certain number of plays
 function checkStars() {
   if (counter === 24) {
+    starCount -= 1;
     stars.removeChild(stars.childNodes[1]);
   } else if (counter === 12) {
+    starCount -= 1;
     stars.removeChild(stars.childNodes[0]);
   }
+}
+
+// Pop up when winner
+function congratulate() {
+  if (window.confirm(`Congratulations!! You Won! \n Your Score = ${counter} \n Stars = ${starCount} \n\n Play again?`)) {
+  restartGame();
+  };
 }
 
 // Declare winner when all cards matched
 function winner() {
   if (matchedCards.length === 16) {
-    // show modal
+    congratulate();
   }
 }
 
@@ -165,6 +175,7 @@ function initialize() {
   counter = 0;
   counterDisplay.innerText = counter;
   stars = document.querySelector('.stars');
+  starCount = 3;
   resetStars();
 }
 
