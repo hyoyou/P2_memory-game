@@ -1,10 +1,34 @@
-
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
- */
+*/
+
+let deck = document.querySelector('.deck');
+let symbols = ["fa-bolt", "fa-bolt",
+              "fa-cube", "fa-cube",
+              "fa-leaf", "fa-leaf",
+              "fa-bomb", "fa-bomb",
+              "fa-anchor", "fa-anchor",
+              "fa-diamond", "fa-diamond",
+              "fa-bicycle", "fa-bicycle",
+              "fa-paper-plane-o", "fa-paper-plane-o"]
+let shuffledSymbols = shuffle(symbols);
+
+function cardHtml(card) {
+  return `<li class="card"><i class="fa ${card}"></i></li>`;
+}
+
+function generateDeck() {
+  let newDeck = shuffledSymbols.map(function(card) {
+    return cardHtml(card);
+  })
+
+  deck.innerHTML = newDeck.join('');
+}
+
+generateDeck();
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -70,3 +94,5 @@ cards.forEach(function(card) {
     }
   })
 })
+
+// initialize();
