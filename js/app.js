@@ -30,17 +30,17 @@ function generateDeck() {
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+  var currentIndex = array.length, temporaryValue, randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+  while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+  }
 
-    return array;
+  return array;
 }
 
 function initialize() {
@@ -68,6 +68,14 @@ let counter = 1;
 let counterDisplay = document.querySelector('.moves');
 let stars = document.querySelector('.stars');
 
+function mismatched() {
+  setTimeout(function() {
+    openCards.forEach(function(card) {
+      card.classList.add('mismatch')
+    });
+  }, 100);
+}
+
 function checkMatch() {
   if (openCards.length == 2) {
     // Check for a match
@@ -79,19 +87,20 @@ function checkMatch() {
       matchedCards.push(openCards[1]);
       matchedCards.forEach(function(card) {
         card.classList.add('match');
-        card.classList.remove('open', 'show');
+        card.classList.remove('open', 'show', 'mismatch');
       });
       counter += 1;
       openCards = [];
     } else {
     // Place back in deck if not a match
+      mismatched();
       setTimeout(function() {
         cards.forEach(function(card) {
-          card.classList.remove('open', 'show')
+          card.classList.remove('open', 'show', 'mismatch')
         });
         counter += 1;
         openCards = [];
-      }, 500);
+      }, 600);
     }
   }
 }
