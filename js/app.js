@@ -43,12 +43,6 @@ function shuffle(array) {
   return array;
 }
 
-function initialize() {
-  generateDeck();
-}
-
-initialize();
-
 /*
 *** Setting Up Game Play ***
  * Set up the event listener for a card. If a card is clicked:
@@ -61,50 +55,66 @@ initialize();
  *  - if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
 */
 
-let cards = document.querySelectorAll('.card')
+generateDeck();
 let openCards = [];
 let matchedCards = [];
 let counter = 1;
+let cards = document.querySelectorAll('.card')
 let counterDisplay = document.querySelector('.moves');
 let stars = document.querySelector('.stars');
 
+// Match: Add cards to matchedCards array
+function match() {
+  matchedCards.push(openCards[0]);
+  matchedCards.push(openCards[1]);
+  matchedCards.forEach(function(card) {
+    card.classList.add('match');
+    card.classList.remove('open', 'show', 'mismatch');
+  });
+  incrementCounter();
+  openCards = [];
+}
+
+// Not a Match: Display animation and return cards back to deck
 function mismatched() {
   setTimeout(function() {
     openCards.forEach(function(card) {
       card.classList.add('mismatch')
     });
   }, 100);
+  returnToDeck()
 }
 
+function returnToDeck() {
+  setTimeout(function() {
+    cards.forEach(function(card) {
+      card.classList.remove('open', 'show', 'mismatch')
+    });
+    incrementCounter();
+    openCards = [];
+  }, 600);
+}
+
+// Increase counter after every move
+function incrementCounter() {
+  counter += 1;
+}
+
+// Check for a match when there are 2 cards in openCards array
 function checkMatch() {
-  if (openCards.length == 2) {
-    // Check for a match
+  if (openCards.length === 2) {
     let card1 = openCards[0].querySelector('i').classList.value;
     let card2 = openCards[1].querySelector('i').classList.value;
 
     if (card1 === card2) {
-      matchedCards.push(openCards[0]);
-      matchedCards.push(openCards[1]);
-      matchedCards.forEach(function(card) {
-        card.classList.add('match');
-        card.classList.remove('open', 'show', 'mismatch');
-      });
-      counter += 1;
-      openCards = [];
+      match();
     } else {
-    // Place back in deck if not a match
       mismatched();
-      setTimeout(function() {
-        cards.forEach(function(card) {
-          card.classList.remove('open', 'show', 'mismatch')
-        });
-        counter += 1;
-        openCards = [];
-      }, 600);
     }
   }
 }
 
+// Add 'open' and 'show' classes to cards when flipped
 function openCard(card) {
   if (openCards.length < 2 && !card.classList.contains('open') && !card.classList.contains('match')) {
     openCards.push(card);
@@ -114,6 +124,7 @@ function openCard(card) {
   }
 }
 
+// Remove stars after certain number of plays
 function checkStars() {
   if (counter === 24) {
     stars.removeChild(stars.childNodes[1]);
@@ -122,11 +133,25 @@ function checkStars() {
   }
 }
 
-// Event Listener
+function restartGame() {
+  counter = 0;
+  openCards = [];
+  matchedCards = [];
+
+}
+
+function gameOver() {
+  if (matchedCards.length === 16) {
+    restartGame();
+  }
+}
+
+// Event Listeners
 cards.forEach(function(card) {
   card.addEventListener('click', function(event) {
     openCard(card);
     counterDisplay.innerText = counter;
     checkStars();
+    gameOver();
   })
 })
