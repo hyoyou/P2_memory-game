@@ -55,13 +55,13 @@ function shuffle(array) {
  *  - if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
 */
 
-generateDeck();
-let openCards = [];
-let matchedCards = [];
-let counter = 1;
-let cards = document.querySelectorAll('.card')
-let counterDisplay = document.querySelector('.moves');
-let stars = document.querySelector('.stars');
+let openCards;
+let matchedCards;
+let counter;
+let cards
+let counterDisplay
+let stars
+
 
 // Match: Add cards to matchedCards array
 function match() {
@@ -72,6 +72,7 @@ function match() {
     card.classList.remove('open', 'show', 'mismatch');
   });
   incrementCounter();
+  checkStars();
   openCards = [];
 }
 
@@ -91,6 +92,7 @@ function returnToDeck() {
       card.classList.remove('open', 'show', 'mismatch')
     });
     incrementCounter();
+    checkStars();
     openCards = [];
   }, 600);
 }
@@ -114,16 +116,6 @@ function checkMatch() {
   }
 }
 
-// Add 'open' and 'show' classes to cards when flipped
-function openCard(card) {
-  if (openCards.length < 2 && !card.classList.contains('open') && !card.classList.contains('match')) {
-    openCards.push(card);
-    card.classList.add('open', 'show');
-
-    checkMatch();
-  }
-}
-
 // Remove stars after certain number of plays
 function checkStars() {
   if (counter === 24) {
@@ -133,25 +125,62 @@ function checkStars() {
   }
 }
 
-function restartGame() {
-  counter = 0;
-  openCards = [];
-  matchedCards = [];
-
-}
-
-function gameOver() {
+// Declare winner when all cards matched
+function winner() {
   if (matchedCards.length === 16) {
-    restartGame();
+    // show modal
   }
 }
+
+// Add 'open' and 'show' classes to cards when flipped
+function openCard(card) {
+  if (openCards.length < 2 && !card.classList.contains('open') && !card.classList.contains('match')) {
+    openCards.push(card);
+    card.classList.add('open', 'show');
+
+    counterDisplay.innerText = counter;
+    checkMatch();
+    winner();
+  }
+}
+
+// Remove/Add stars on restartGame
+function resetStars() {
+  while (stars.firstChild) {
+    stars.removeChild(stars.firstChild);
+  }
+  for (let i = 0; i < 3; i++) {
+    let li = document.createElement('li');
+    li.innerHTML = `<i class="fa fa-star">&nbsp;</i>`
+    stars.appendChild(li);
+  }
+}
+
+function initialize() {
+  openCards = [];
+  matchedCards = [];
+  counter = 1;
+  generateDeck();
+  cards = document.querySelectorAll('.card')
+  counterDisplay = document.querySelector('.moves');
+  stars = document.querySelector('.stars');
+  resetStars();
+}
+
+function restartGame() {
+  initialize()
+}
+
+initialize();
 
 // Event Listeners
 cards.forEach(function(card) {
   card.addEventListener('click', function(event) {
     openCard(card);
-    counterDisplay.innerText = counter;
-    checkStars();
-    gameOver();
   })
 })
+
+let replay = document.querySelector('.restart');
+replay.addEventListener('click', function(event) {
+  restartGame();
+});
