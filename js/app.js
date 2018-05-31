@@ -38,7 +38,7 @@ let flippedCards = [];
 
 cards.forEach(function(card) {
   card.addEventListener('click', function(event) {
-    if (flippedCards.length < 2) {
+    if (flippedCards.length < 2 && !card.classList.contains('open')) {
       flippedCards.push(card);
       card.classList.add('open', 'show');
 
