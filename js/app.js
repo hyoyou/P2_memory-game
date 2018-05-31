@@ -39,5 +39,6 @@ let flipped = [];
 cards.forEach(function(card) {
   card.addEventListener('click', function(event) {
     console.log(event.target)
+    card.classList.add('open', 'show')
   })
 })
