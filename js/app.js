@@ -38,15 +38,18 @@ let flippedCards = [];
 
 cards.forEach(function(card) {
   card.addEventListener('click', function(event) {
-    console.log(flippedCards.length)
-    if (flippedCards.length >= 2) {
-      cards.forEach(function(card) {
-        card.classList.remove('open', 'show')
-      });
-      flippedCards = []
-    } else {
-      flippedCards.push(card)
-      card.classList.add('open', 'show')
+    if (flippedCards.length < 2) {
+      flippedCards.push(card);
+      card.classList.add('open', 'show');
+
+      if (flippedCards.length == 2) {
+        setTimeout(function() {
+          cards.forEach(function(card) {
+            card.classList.remove('open', 'show')
+          });
+          flippedCards = [];
+        }, 500);
+      }
     }
   })
 })
