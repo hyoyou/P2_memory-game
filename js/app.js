@@ -177,6 +177,9 @@ function initialize() {
   stars = document.querySelector('.stars');
   starCount = 3;
   resetStars();
+  setInterval(function() {
+    
+  }, 1000);
 }
 
 function restartGame() {
