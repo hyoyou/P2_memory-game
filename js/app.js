@@ -138,9 +138,11 @@ function congratulate() {
 
 // Declare winner when all cards matched
 function winner() {
-  if (matchedCards.length === 16) {
-    congratulate();
-  }
+  setTimeout(function() {
+    if (matchedCards.length === 16) {
+      congratulate();
+    }
+  }, 500)
 }
 
 // Add 'open' and 'show' classes to cards when flipped
@@ -178,7 +180,7 @@ function initialize() {
   starCount = 3;
   resetStars();
   setInterval(function() {
-    
+
   }, 1000);
 }
 
