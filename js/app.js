@@ -59,7 +59,7 @@ let openCards;
 let matchedCards;
 let counter;
 let cards
-let counterDisplay
+let counterDisplay = document.querySelector('.moves');
 let stars
 
 
@@ -100,6 +100,7 @@ function returnToDeck() {
 // Increase counter after every move
 function incrementCounter() {
   counter += 1;
+  counterDisplay.innerText = counter;
 }
 
 // Check for a match when there are 2 cards in openCards array
@@ -138,7 +139,6 @@ function openCard(card) {
     openCards.push(card);
     card.classList.add('open', 'show');
 
-    counterDisplay.innerText = counter;
     checkMatch();
     winner();
   }
@@ -157,12 +157,13 @@ function resetStars() {
 }
 
 function initialize() {
-  openCards = [];
-  matchedCards = [];
-  counter = 1;
   generateDeck();
   cards = document.querySelectorAll('.card')
-  counterDisplay = document.querySelector('.moves');
+  addEventListener();
+  openCards = [];
+  matchedCards = [];
+  counter = 0;
+  counterDisplay.innerText = counter;
   stars = document.querySelector('.stars');
   resetStars();
 }
@@ -174,11 +175,13 @@ function restartGame() {
 initialize();
 
 // Event Listeners
-cards.forEach(function(card) {
-  card.addEventListener('click', function(event) {
-    openCard(card);
+function addEventListener() {
+  cards.forEach(function(card) {
+    card.addEventListener('click', function(event) {
+      openCard(card);
+    })
   })
-})
+}
 
 let replay = document.querySelector('.restart');
 replay.addEventListener('click', function(event) {
