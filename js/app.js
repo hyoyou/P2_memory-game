@@ -65,7 +65,8 @@ let cards = document.querySelectorAll('.card')
 let openCards = [];
 let matchedCards = [];
 let counter = 1;
-let counterDisplay = document.querySelector('.moves')
+let counterDisplay = document.querySelector('.moves');
+let stars = document.querySelector('.stars');
 
 function checkMatch() {
   if (openCards.length == 2) {
@@ -104,10 +105,19 @@ function openCard(card) {
   }
 }
 
+function checkStars() {
+  if (counter === 24) {
+    stars.removeChild(stars.childNodes[1]);
+  } else if (counter === 12) {
+    stars.removeChild(stars.childNodes[0]);
+  }
+}
+
 // Event Listener
 cards.forEach(function(card) {
   card.addEventListener('click', function(event) {
     openCard(card);
     counterDisplay.innerText = counter;
+    checkStars();
   })
 })
