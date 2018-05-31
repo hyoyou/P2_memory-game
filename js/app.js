@@ -35,6 +35,7 @@ function shuffle(array) {
 // Create a list that holds all of your cards
 let cards = document.querySelectorAll('.card')
 let flippedCards = [];
+let matchedCards = [];
 
 cards.forEach(function(card) {
   card.addEventListener('click', function(event) {
@@ -43,12 +44,28 @@ cards.forEach(function(card) {
       card.classList.add('open', 'show');
 
       if (flippedCards.length == 2) {
-        setTimeout(function() {
-          cards.forEach(function(card) {
-            card.classList.remove('open', 'show')
-          });
+        // Check for a match
+        let card1 = flippedCards[0].querySelector('i').classList.value;
+        let card2 = flippedCards[1].querySelector('i').classList.value;
+
+        if (card1 === card2) {
+          matchedCards.push(flippedCards[0])
+          matchedCards.push(flippedCards[1])
+          console.log(matchedCards)
+          matchedCards.forEach(function(card) {
+            card.classList.add('match');
+            card.classList.remove('open', 'show');
+          })
           flippedCards = [];
-        }, 500);
+        } else {
+        // Place back in deck if not a match
+          setTimeout(function() {
+            cards.forEach(function(card) {
+              card.classList.remove('open', 'show')
+            });
+            flippedCards = [];
+          }, 500);
+        }
       }
     }
   })
