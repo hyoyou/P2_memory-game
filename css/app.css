@@ -1,159 +1,153 @@
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 *,
 *::before,
 *::after {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 html,
 body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
-    font-family: 'Coda', cursive;
+  background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
+  font-family: 'Bowlby One SC', cursive;
 }
 
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 h1 {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
+  font-family: 'Lobster', cursive;
+  font-weight: 300;
+  font-size: 2.5em;
 }
 
-/*
- * Styles for the deck of cards
- */
-
+/*  Styles for the deck of cards */
 .deck {
-    width: 660px;
-    min-height: 680px;
-    background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
-    padding: 32px;
-    border-radius: 10px;
-    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 0 3em;
+  width: 660px;
+  min-height: 680px;
+  background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+  padding: 32px;
+  border-radius: 10px;
+  box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 3em;
 }
 
 .deck .card {
-    height: 125px;
-    width: 125px;
-    background: #2e3d49;
-    font-size: 0;
-    color: #ffffff;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+  height: 125px;
+  width: 125px;
+  background: #2e3d49;
+  font-size: 0;
+  color: #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
 
 .deck .card.open {
-    transform: rotateY(0);
-    background: #02b3e4;
-    cursor: default;
+  transform: rotateY(0);
+  background: #02b3e4;
+  cursor: default;
 }
 
 .deck .card.show {
-    font-size: 33px;
+  font-size: 33px;
 }
 
 /* Zoom In and Out Animation from https://medium.com/@bharatkaravadra/how-to-create-a-css-zoom-in-out-effect-546654fb54e4 */
 .deck .card.match {
-    animation: zoominout 1s forwards;
-    cursor: default;
-    background: #02ccba;
-    font-size: 33px;
+  animation: zoominout 1s forwards;
+  cursor: default;
+  background: #02ccba;
+  font-size: 33px;
 }
 
 /* Shake Animation from https://css-tricks.com/snippets/css/shake-css-keyframe-animation/ */
 .deck .card.mismatch {
-    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-    background: #9C33FF;
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  background: #9C33FF;
 }
 
-/*
- * Styles for the Score Panel
- */
+/* Styles for the Score Panel */
 
 .score-panel {
-    text-align: center;
-    width: 345px;
-    margin-bottom: 10px;
+  text-align: center;
+  width: 345px;
+  margin-bottom: 10px;
 }
 
 .score-panel .stars {
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-    margin: 0 5px 0 0;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  margin: 0 5px 0 0;
 }
 
 .score-panel .stars li {
-    list-style: none;
-    display: inline-block;
+  list-style: none;
+  display: inline-block;
 }
 
 .score-panel .timer {
-    float: left;
+  float: left;
 }
 
 .score-panel .restart {
-    float: right;
-    cursor: pointer;
+  float: right;
+  cursor: pointer;
 }
 
 #modal {
-    display: none;
-    background-color: white;
-    opacity: .8;
-    border-radius: 25px;
-    z-index: 2;
-    position: absolute;
-    width: 350px;
-    height: 350px;
-    padding-top: 7%
+  display: none;
+  background-color: white;
+  opacity: .8;
+  border-radius: 25px;
+  z-index: 2;
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  padding-top: 7%
 }
 
 .center {
-    text-align: center;
+  text-align: center;
 }
 
 button {
-    margin: auto;
-    text-align: center;
-    background-color: #02ccba;
-    display: inline-block;
-    font-size: 1.2em;
-    padding: 5px;
-    border-radius: 10px;
-    width: 50%;
-    margin-left: 25%;
-    cursor: pointer;
+  margin: auto;
+  text-align: center;
+  background-color: #02ccba;
+  display: inline-block;
+  font-size: 1.2em;
+  padding: 5px;
+  border-radius: 10px;
+  width: 50%;
+  margin-left: 25%;
+  cursor: pointer;
 }
 
-/*
- * Animation Styles
- */
+/* Animation Styles */
 
 /* Shake Animation from https://css-tricks.com/snippets/css/shake-css-keyframe-animation/ */
 @keyframes shake {
@@ -177,12 +171,67 @@ button {
 /* Zoom In and Out Animation from https://medium.com/@bharatkaravadra/how-to-create-a-css-zoom-in-out-effect-546654fb54e4 */
 @keyframes zoominout {
   0% {
-      transform: scale(1,1);
+    transform: scale(1,1);
   }
   50% {
-      transform: scale(1.2,1.2);
+    transform: scale(1.2,1.2);
   }
   100% {
-      transform: scale(1,1);
+    transform: scale(1,1);
+  }
+}
+
+/* Media Queries */
+@media screen and (max-width: 400px) {
+  h1 {
+    font-size: 50px;
+  }
+
+  .deck {
+    min-width: 340px;
+    max-width: 360px;
+    min-height: 350px;
+    max-height: 370px;
+    padding: 12px;
+  }
+
+  .deck .card {
+    max-height: 77px;
+    max-width: 77px;
+  }
+
+  .deck .card.show {
+    font-size: 42px;
+  }
+
+}
+
+@media screen and (min-width: 400px) and (max-width: 600px) {
+  .deck {
+    width: 380px;
+    min-height: 390px;
+    padding: 16px;
+  }
+
+  .deck .card {
+    height: 80px;
+    width: 80px;
+  }
+
+  .deck .card.show {
+    font-size: 37px;
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 750px) {
+  .deck {
+    width: 550px;
+    min-height: 570px;
+    padding: 24px;
+  }
+
+  .deck .card {
+    height: 110px;
+    width: 110px;
   }
 }
