@@ -60,9 +60,9 @@ let matchedCards;
 let counter;
 let cards;
 let counterDisplay = document.querySelector('.moves');
-let stars;
+let stars = document.querySelector('.stars');
 let starCount;
-
+let seconds, minutes, timer;
 
 // Match: Add cards to matchedCards array
 function match() {
@@ -100,7 +100,7 @@ function returnToDeck() {
 
 // Increase counter after every move
 function incrementCounter() {
-  counter += 1;
+  counter++;
   counterDisplay.innerText = counter;
 }
 
@@ -131,12 +131,13 @@ function checkStars() {
 
 // Pop up when winner
 function congratulate() {
-  if (window.confirm(`Congratulations!! You Won! \n Your Score = ${counter} \n Stars = ${starCount} \n\n Play again?`)) {
+  let elapsedTime = document.querySelector('.timer').textContent;
+  if (window.confirm(`Congratulations!! You Won! \n Your Score = ${counter} \n Stars = ${starCount} \n Time = ${elapsedTime} \n\n Play again?`)) {
   restartGame();
   };
 }
 
-// Declare winner when all cards matched
+// Declare winner when all cards matched, but wait so that last card is flipped over
 function winner() {
   setTimeout(function() {
     if (matchedCards.length === 16) {
@@ -168,19 +169,34 @@ function resetStars() {
   }
 }
 
+function formatTimer() {
+  let timerDisplay = document.querySelector('.timer');
+  seconds++;
+  if (seconds === 60) {
+    seconds = 00;
+    minutes++;
+  }
+  if (seconds < 10) {
+    seconds = `0${seconds}`;
+  }
+  timerDisplay.innerHTML = `<i class="fa fa-clock-o"> ${minutes}:${seconds}</i>`;
+}
+
 function initialize() {
   generateDeck();
-  cards = document.querySelectorAll('.card')
+  cards = document.querySelectorAll('.card');
   addEventListener();
   openCards = [];
   matchedCards = [];
   counter = 0;
   counterDisplay.innerText = counter;
-  stars = document.querySelector('.stars');
   starCount = 3;
   resetStars();
-  setInterval(function() {
-
+  clearInterval(timer)
+  seconds = 00;
+  minutes = 0;
+  timer = setInterval(function() {
+    formatTimer();
   }, 1000);
 }
 
