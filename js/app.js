@@ -63,6 +63,7 @@ let counterDisplay = document.querySelector('.moves');
 let stars = document.querySelector('.stars');
 let starCount;
 let seconds, minutes, timer;
+let modal = document.getElementById('modal');
 
 // Match: Add cards to matchedCards array
 function match() {
@@ -129,18 +130,24 @@ function checkStars() {
   }
 }
 
-// Pop up when winner
+// Pop up when there is a winner
 function congratulate() {
   let elapsedTime = document.querySelector('.timer').textContent;
-  if (window.confirm(`Congratulations!! You Won! \n Your Score = ${counter} \n Stars = ${starCount} \n Time = ${elapsedTime} \n\n Play again?`)) {
-  restartGame();
-  };
+  modal.style.display = "block";
+  modal.innerHTML = `<span class="center">
+                    <h3>Congratulations!</h3>
+                    <p>Your score: ${counter}<p>
+                    <p>Stars: ${starCount}</p>
+                    <p>Time: ${elapsedTime}</p>
+                    <button class="btn btn-primary" onclick="restartGame()">Play New Game</button>
+                    </span>`
 }
 
 // Declare winner when all cards matched, but wait so that last card is flipped over
 function winner() {
   setTimeout(function() {
     if (matchedCards.length === 16) {
+      clearInterval(timer);
       congratulate();
     }
   }, 500)
@@ -198,6 +205,7 @@ function initialize() {
   timer = setInterval(function() {
     formatTimer();
   }, 1000);
+  modal.style.display = "none";
 }
 
 function restartGame() {

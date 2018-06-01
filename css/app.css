@@ -122,6 +122,35 @@ h1 {
     cursor: pointer;
 }
 
+#modal {
+    display: none;
+    background-color: white;
+    opacity: .8;
+    border-radius: 25px;
+    z-index: 2;
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    padding-top: 7%
+}
+
+.center {
+    text-align: center;
+}
+
+button {
+    margin: auto;
+    text-align: center;
+    background-color: #02ccba;
+    display: inline-block;
+    font-size: 1.2em;
+    padding: 5px;
+    border-radius: 10px;
+    width: 50%;
+    margin-left: 25%;
+    cursor: pointer;
+}
+
 /*
  * Animation Styles
  */
