@@ -1,20 +1,18 @@
 # Memory Game Project
 
-## Table of Contents
+This is a memory game created for Project #2 of my Udacity Front-End Web Developer Nanodegree Program.
+Users select two cards to find matching symbols. When all cards are matched, the timer stops and user is given a rating dependent upon number of plays. Hope you enjoy!
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+## Getting Started
 
-## Instructions
-
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+Open index.html in browser to play game. You can either copy the path into your browser or type 'open index.html' from your terminal after navigating into the correct directory.
 
 ## Contributing
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
+The starter code for this repository is from Udacity.
 For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Authors
+
+* **Udacity** - *Initial work* - [Udacity](https://github.com/udacity/fend-project-memory-game)
+* **Heather You** - [Heather You](https://github.com/hyoyou/P2_memory-game)
