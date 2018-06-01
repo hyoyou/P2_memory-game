@@ -64,6 +64,7 @@ let counterDisplay = document.querySelector('.moves');
 let stars = document.querySelector('.stars');
 let starCount;
 let seconds, minutes, timer;
+let timerDisplay = document.querySelector('.timer');
 let modal = document.getElementById('modal');
 
 // Match: Add cards to matchedCards array
@@ -188,7 +189,6 @@ function resetStars() {
 
 // Format the timer to display mm:ss
 function formatTimer() {
-  let timerDisplay = document.querySelector('.timer');
   seconds++;
   if (seconds === 60) {
     seconds = 00;
@@ -198,6 +198,15 @@ function formatTimer() {
     seconds = `0${seconds}`;
   }
   timerDisplay.innerHTML = `<i class="fa fa-clock-o"> ${minutes}:${seconds}</i>`;
+}
+
+// Start timer after first click, not when browser loads
+function runTimer() {
+  if (seconds === 0 && minutes === 0) {
+    timer = setInterval(function() {
+      formatTimer();
+    }, 1000);
+  }
 }
 
 // Function to initialize game
@@ -214,14 +223,12 @@ function initialize() {
   clearInterval(timer)
   seconds = 00;
   minutes = 0;
-  timer = setInterval(function() {
-    formatTimer();
-  }, 1000);
+  timerDisplay.innerHTML = `<i class="fa fa-clock-o"> 0:00</i>`;
   modal.style.display = "none";
 }
 
 function restartGame() {
-  initialize()
+  initialize();
 }
 
 initialize();
@@ -231,6 +238,7 @@ function addEventListener() {
   cards.forEach(function(card) {
     card.addEventListener('click', function(event) {
       openCard(card);
+      runTimer();
     })
   })
 }
