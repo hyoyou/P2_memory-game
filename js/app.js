@@ -55,6 +55,7 @@ function shuffle(array) {
  *  - if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
 */
 
+// Variables used throughout gameplay
 let openCards;
 let matchedCards;
 let counter;
@@ -122,22 +123,31 @@ function checkMatch() {
 // Remove stars after certain number of plays
 function checkStars() {
   if (counter === 24) {
-    starCount -= 1;
+    starCount--;
     stars.removeChild(stars.childNodes[1]);
   } else if (counter === 12) {
-    starCount -= 1;
+    starCount--;
     stars.removeChild(stars.childNodes[0]);
   }
 }
 
-// Pop up when there is a winner
+// Display stars on congratulation modal
+function starHtml(starCount) {
+  let html = [];
+  for (let i = 0; i < starCount; i++) {
+    html.push(`<i class="fa fa-star"></i>`);
+  }
+  return html.join('');
+}
+
+// Pop up modal when there is a winner
 function congratulate() {
   let elapsedTime = document.querySelector('.timer').textContent;
   modal.style.display = "block";
   modal.innerHTML = `<span class="center">
-                    <h3>Congratulations!</h3>
-                    <p>Your score: ${counter}<p>
-                    <p>Stars: ${starCount}</p>
+                    <h2>Congratulations!</h2>
+                    <p>Total Moves: ${counter}<p>
+                    <p>Stars: ${starHtml(starCount)}</p>
                     <p>Time: ${elapsedTime}</p>
                     <button class="btn btn-primary" onclick="restartGame()">Play New Game</button>
                     </span>`
@@ -176,6 +186,7 @@ function resetStars() {
   }
 }
 
+// Format the timer to display mm:ss
 function formatTimer() {
   let timerDisplay = document.querySelector('.timer');
   seconds++;
@@ -189,6 +200,7 @@ function formatTimer() {
   timerDisplay.innerHTML = `<i class="fa fa-clock-o"> ${minutes}:${seconds}</i>`;
 }
 
+// Function to initialize game
 function initialize() {
   generateDeck();
   cards = document.querySelectorAll('.card');
