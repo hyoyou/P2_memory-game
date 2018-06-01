@@ -126,8 +126,9 @@ h1 {
   z-index: 2;
   position: absolute;
   width: 350px;
-  height: 350px;
-  padding-top: 7%
+  height: 260px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .center {
@@ -203,6 +204,10 @@ button {
   .deck .card.show {
     font-size: 42px;
   }
+
+  #modal {
+    width: 300px;
+  }
 }
 
 @media screen and (min-width: 400px) and (max-width: 600px) {
@@ -219,6 +224,10 @@ button {
 
   .deck .card.show {
     font-size: 37px;
+  }
+
+  #modal {
+    width: 300px;
   }
 }
 
