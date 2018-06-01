@@ -63,7 +63,7 @@ let cards;
 let counterDisplay = document.querySelector('.moves');
 let stars = document.querySelector('.stars');
 let starCount;
-let seconds, minutes, timer;
+let seconds, minutes, timer, click;
 let timerDisplay = document.querySelector('.timer');
 let modal = document.getElementById('modal');
 
@@ -87,7 +87,8 @@ function mismatched() {
       card.classList.add('mismatch')
     });
   }, 100);
-  returnToDeck()
+
+  returnToDeck();
 }
 
 function returnToDeck() {
@@ -95,6 +96,7 @@ function returnToDeck() {
     cards.forEach(function(card) {
       card.classList.remove('open', 'show', 'mismatch')
     });
+
     incrementCounter();
     checkStars();
     openCards = [];
@@ -150,7 +152,7 @@ function congratulate() {
                     <p>Total Moves: ${counter}<p>
                     <p>Stars: ${starHtml(starCount)}</p>
                     <p>Time: ${elapsedTime}</p>
-                    <button class="btn btn-primary" onclick="restartGame()">Play New Game</button>
+                    <button class="btn btn-primary" onclick="initialize()">Play New Game</button>
                     </span>`
 }
 
@@ -158,7 +160,7 @@ function congratulate() {
 function winner() {
   setTimeout(function() {
     if (matchedCards.length === 16) {
-      clearInterval(timer);
+      stopTimer();
       congratulate();
     }
   }, 500)
@@ -166,6 +168,7 @@ function winner() {
 
 // Add 'open' and 'show' classes to cards when flipped
 function openCard(card) {
+  click ++;
   if (openCards.length < 2 && !card.classList.contains('open') && !card.classList.contains('match')) {
     openCards.push(card);
     card.classList.add('open', 'show');
@@ -191,7 +194,7 @@ function resetStars() {
 function formatTimer() {
   seconds++;
   if (seconds === 60) {
-    seconds = 00;
+    seconds = 0;
     minutes++;
   }
   if (seconds < 10) {
@@ -200,50 +203,50 @@ function formatTimer() {
   timerDisplay.innerHTML = `<i class="fa fa-clock-o"> ${minutes}:${seconds}</i>`;
 }
 
-// Start timer after first click, not when browser loads
 function runTimer() {
-  if (seconds === 0 && minutes === 0) {
-    timer = setInterval(function() {
-      formatTimer();
-    }, 1000);
-  }
+  timer = setInterval(function() {
+    formatTimer();
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timer);
 }
 
 // Function to initialize game
 function initialize() {
   generateDeck();
   cards = document.querySelectorAll('.card');
-  addEventListener();
   openCards = [];
   matchedCards = [];
   counter = 0;
   counterDisplay.innerText = counter;
   starCount = 3;
   resetStars();
-  clearInterval(timer)
-  seconds = 00;
+  clearInterval(timer);
+  seconds = 0;
   minutes = 0;
+  click = 0;
+  addEventListener();
   timerDisplay.innerHTML = `<i class="fa fa-clock-o"> 0:00</i>`;
   modal.style.display = "none";
 }
-
-function restartGame() {
-  initialize();
-}
-
-initialize();
 
 // Event Listeners
 function addEventListener() {
   cards.forEach(function(card) {
     card.addEventListener('click', function(event) {
       openCard(card);
-      runTimer();
+      if (click === 1) {
+        runTimer();
+      }
     })
   })
 }
 
 let replay = document.querySelector('.restart');
 replay.addEventListener('click', function(event) {
-  restartGame();
+  initialize();
 });
+
+initialize();
